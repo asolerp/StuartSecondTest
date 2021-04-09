@@ -1,5 +1,4 @@
 version: '3.7'
-
 services:
 
   mongo:
@@ -7,9 +6,11 @@ services:
     ports:
       - "27017:27017"
   server:
-    build: ./
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 8081:8081
+      - 3000:3000
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules

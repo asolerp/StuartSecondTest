@@ -1,22 +1,32 @@
-#  Dockerfile for Node Express Backend api (development)
-
-FROM node:current-alpine
-
-# ARG NODE_ENV=development
-
-# Create App Directory
-RUN mkdir -p /usr/src/app
+# First stage: compile things.
+FROM node:current-alpine AS build
 WORKDIR /usr/src/app
 
-# Install Dependencies
-COPY package*.json ./
+# (Install OS dependencies; include -dev packages if needed.)
 
+# Install the Javascript dependencies, including all devDependencies.
+COPY package.json .
 RUN npm install
 
-# Copy app source code
+# Copy the rest of the application in and build it.
 COPY . .
+# RUN npm build
+RUN npx tsc -p ./tsconfig.json
 
-# Exports
-EXPOSE 8081
+# Now /usr/src/app/dist has the built files.
 
-CMD ["npm","start"]
+# Second stage: run things.
+FROM node:current-alpine
+WORKDIR /usr/src/app
+
+
+# Install the Javascript dependencies, only runtime libraries.
+COPY package.json .
+RUN npm install --production
+
+# Copy the dist tree from the first stage.
+COPY --from=build /usr/src/app/dist dist
+
+# Run the built application when the container starts.
+EXPOSE 3000
+CMD ["npm", "start"]
