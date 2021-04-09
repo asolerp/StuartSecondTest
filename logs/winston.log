@@ -1,0 +1,21 @@
+{ level: 'error', timestamp: '2021-04-09T06:32:59.369Z' }
+{
+  message: 'mongodb://localhost:27017/stuart',
+  level: 'debug',
+  timestamp: '2021-04-09T06:33:47.012Z'
+}
+{
+  message: 'Server ready on port 3000!! 🚴‍♀️🚴‍♀️',
+  level: 'info',
+  timestamp: '2021-04-09T06:33:47.027Z'
+}
+{
+  message: 'Mongoose default connection open to mongodb://localhost:27017/stuart',
+  level: 'info',
+  timestamp: '2021-04-09T06:33:47.072Z'
+}
+{
+  message: 'Mongoose connection done',
+  level: 'info',
+  timestamp: '2021-04-09T06:33:47.073Z'
+}

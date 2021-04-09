@@ -1,6 +1,6 @@
 import mongoose, { mongo } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import Logger from 'core/Logger';
+import Logger from '../core/Logger';
 
 const mongoServer: MongoMemoryServer = new MongoMemoryServer();
 
@@ -14,7 +14,7 @@ const connect = async () => {
   await mongoose.disconnect();
 
   const mongoUri = await mongoServer.getUri();
-  mongoose.connect(mongoUri, opts, (err) => {
+  await mongoose.connect(mongoUri, opts, (err) => {
     if (err) {
       Logger.error(err);
     }
