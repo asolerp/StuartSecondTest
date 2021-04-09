@@ -1,5 +1,8 @@
 import request from 'supertest';
 
+import Courier from '../../database/models/Courier';
+import CourierRepo from '../../database/repository/CourierRepo';
+
 import app from '../../app';
 import db from '../../utils/db';
 
@@ -19,6 +22,18 @@ describe('Test courirer endpoints', () => {
 
     const { _id } = response.body;
     expect(_id).toBeTruthy();
+    done();
+  });
+  it('List of couriers whose capacity is greater or equal to the one required', async (done) => {
+    await Promise.all(
+      [{ max_capacity: 20 }, { max_capacity: 42 }]
+        .map(async (courier) => CourierRepo.create(courier as Courier)),
+    );
+    const response = await agent
+      .get('/courier/lookup')
+      .send({ capacity_required: 12 })
+      .expect(200);
+    expect(response.body.length).toBe(2);
     done();
   });
 });
