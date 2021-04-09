@@ -36,4 +36,15 @@ describe('Test courirer endpoints', () => {
     expect(response.body.length).toBe(2);
     done();
   });
+  it('Update capacity of courier', async (done) => {
+    const courier = { max_capacity: 20 };
+    const newCourier = await CourierRepo.create(courier as Courier);
+
+    const response = await agent
+      .delete(`/courier/${newCourier._id}`)
+      .expect(200);
+
+    expect(response.body.deleteCount).toBe(1);
+    done();
+  });
 });
