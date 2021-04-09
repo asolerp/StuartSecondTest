@@ -58,3 +58,14 @@ npm run test
 ```
 
 ---
+
+## Bonus Goals
+- App in docker container
+
+## Questions
+
+**If you were to have more time, what would you do? Briefly explain what could be improved.**
+
+ - I would create some classes to improve the way I have handled successful and error responses from the server.
+ - I would export metrics with prometheus and I would create a Grafana Dashboard to show important info of the app.
+ - I would implemented Loki to have a log viewer in Grafana.
