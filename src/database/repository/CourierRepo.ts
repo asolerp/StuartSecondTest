@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import Courier, { CourierModel } from '../models/Courier';
 
 export default class CourierRepo {
@@ -10,5 +11,10 @@ export default class CourierRepo {
     return CourierModel.find({ max_capacity: { $gte: capacity_required } })
       .lean<[Courier]>()
       .exec();
+  }
+
+  public static async delete(id: Types.ObjectId): Promise<any> {
+    const deletedCourier = await CourierModel.deleteOne({ _id: id });
+    return deletedCourier;
   }
 }
