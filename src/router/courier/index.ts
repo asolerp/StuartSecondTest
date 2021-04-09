@@ -8,6 +8,19 @@ import schema from './schema';
 
 const router = Router();
 
+// GET
+router.get('/courier/lookup', validator(schema.courierLookup), async (req: Request, res: Response) => {
+  const { capacity_required } = req.body;
+  try {
+    const courierList = await CourierRepo.findByCapacityRequired(capacity_required);
+    res.status(200).json(courierList);
+  } catch (err) {
+    Logger.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+// POST
 router.post('/courier', validator(schema.courierCreate), async (req: Request, res: Response) => {
   try {
     const { max_capacity } = req.body;

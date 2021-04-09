@@ -5,4 +5,10 @@ export default class CourierRepo {
     const newCourier = await CourierModel.create(courier);
     return newCourier;
   }
+
+  public static findByCapacityRequired(capacity_required: number): Promise<[Courier] | []> {
+    return CourierModel.find({ max_capacity: { $gte: capacity_required } })
+      .lean<[Courier]>()
+      .exec();
+  }
 }
