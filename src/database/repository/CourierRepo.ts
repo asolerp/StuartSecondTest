@@ -7,6 +7,12 @@ export default class CourierRepo {
     return newCourier;
   }
 
+  public static async update(id: Types.ObjectId, max_capacity: number): Promise<any> {
+    const updatedCourier = await CourierModel
+      .findOneAndUpdate({ _id: id }, { max_capacity }, { new: true }).lean().exec();
+    return updatedCourier;
+  }
+
   public static findByCapacityRequired(capacity_required: number): Promise<[Courier] | []> {
     return CourierModel.find({ max_capacity: { $gte: capacity_required } })
       .lean<[Courier]>()

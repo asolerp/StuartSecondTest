@@ -36,6 +36,18 @@ router.post('/courier', validator(schema.courierCreate), async (req: Request, re
   }
 });
 
+// PUT
+router.put('/courier', validator(schema.courierUpdate), async (req: Request, res: Response) => {
+  try {
+    const { max_capacity, _id } = req.body;
+    const updatedCourier = await CourierRepo.update(_id, max_capacity);
+    res.status(200).json(updatedCourier);
+  } catch (err) {
+    Logger.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
 // DELETE
 router.delete('/courier/:id', validator(schema.courirerDelete, ValidationSource.PARAM), async (req: Request, res: Response) => {
   try {
