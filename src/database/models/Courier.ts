@@ -16,4 +16,4 @@ const schema = new Schema(
   },
 );
 
-export const CourirerModel = model<Courier>(DOCUMENT_NAME, schema, COLLECTION_NAME);
+export const CourierModel = model<Courier>(DOCUMENT_NAME, schema, COLLECTION_NAME);
